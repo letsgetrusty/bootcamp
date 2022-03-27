@@ -1,0 +1,15 @@
+[package]
+name = "draw"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"], optional = true }
+rgb = { version = "0.8.25", features = ["serde"], optional = true }
+
+[features]
+default = ["color"]
+color = ["dep:rgb"]
+shapes = ["color", "dep:serde", "rgb?/serde"]

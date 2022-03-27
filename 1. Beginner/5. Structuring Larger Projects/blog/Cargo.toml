@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+    "blog_api",
+    "blog_web",
+    "blog_shared"
+]
