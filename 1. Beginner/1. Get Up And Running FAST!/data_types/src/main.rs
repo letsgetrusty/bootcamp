@@ -9,7 +9,7 @@ fn main() {
     let i4: u64 = 1;
     let i6: u128 = 1;
 
-    // singed integers
+    // signed integers
     let i7: i8 = 1;
     let i8: i16 = 1;
     let i9: i32 = 1;
