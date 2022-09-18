@@ -44,7 +44,7 @@ fn main() {
     let unit = ();
 
     // Type aliasing
-    type age = u8;
+    type Age = u8;
 
-    let a1: age = 57;
+    let a1: Age = 57;
 }
