@@ -2,16 +2,16 @@
 
 __Database and Models__
 
-In backend development projects, the database design is often the very first task to complete and complete well. The database design determines what and how information is important and stored for repeated usages. While designing the database (what technologies to use, how to model it, etc.), we can very quickly assess if the project is a feasible idea and if we can meet most requirements.
+In backend development projects, the database design is often the very first task to complete and complete well. The database design determines what and how information is imported and stored for repeated usages. While designing the database (what technologies to use, how to model it, etc.), we can very quickly assess if the project is feasible and if we can meet the requirements.
 
-In this project, we will persist Epic and Story records into a JSON file to keep things as simple as possible. The primary components are as follows:
+In this project, we will persist Epic and Story records in a JSON file to keep things as simple as possible. The JSON model contains the following components:
 * `last_item_id` - A global integer ID counter for both Epics and Stories. Each newly created Epic/Story will increment the counter.
 * `epics` - A mapping between Epic IDs and the actual Epics. An Epic will consist a list of Stories in the form of Story IDs.
 * `stories` - A mapping between Story IDs and the actual Stories.
 * `epic` and `story` both have `id`, `title`, `description` and `status`.
 * `status` can be `Open`, `InProgress`, `Resolved` or `Closed`. 
 
-Here's an example for how that JSON file will look like:
+Here's an example for how the JSON file will look like:
 ```json
 {
   "last_item_id": 3,
@@ -72,12 +72,12 @@ Complete this step by finishing the TODO items in `db.rs` and `models.rs`.
 
 ### Step 3
 
-__Added CRUD operations for Epics/Stories__
+__Add CRUD operations for Epics/Stories__
 
 Another Struct called `JiraDatabase` has been added to `db.rc`. This Struct will contain CRUD methods for Epics and Stories. 
 
 Complete this step by finishing the TODO items in `db.rs`. 
 
-__NOTE 1:__ Use `anyhow!()` for error handling.
+__NOTE 1:__ Use the `anyhow!()` macro for error handling.
 
-__NOTE 2:__ Take a look at the `test_utils` module. Because `JiraDatabase` stores a trait object which can be any type that implements `Database`, we can create a mock database for testing. Also note that `MockDB` uses the `RefCell` smart pointer. This is because `write_db` takes an immutable reference to self and we need some way to work around this restriction. 
+__NOTE 2:__ Take a look at the `test_utils` module. Because `JiraDatabase` stores a trait object which can be any type that implements `Database`, we can create a mock database for testing (`MockDB`). Also note that `MockDB` uses the `RefCell` smart pointer. This is because `write_db()` takes an immutable reference to `self` and we need some way to work around this restriction.

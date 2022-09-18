@@ -20,7 +20,7 @@ Home - The home page displays a list of epics.
 [q] quit | [c] create epic | [:id:] navigate to epic
 ```
 
-Epic Detail - The epic detail page displays a single epics's details and a list of stories connected to that epic.
+Epic Detail - The epic detail page displays a single epic's details and a list of stories connected to that epic.
 
 ```
 ------------------------------ EPIC ------------------------------
@@ -53,7 +53,7 @@ Pages have two methods, `draw_page()` and `handle_input()`.
 
 `draw_page()` is responsible for rendering the page to standard out. This method will also render a list of actions users can take (ex: navigate to epic detail page, create story, delete epic, etc.)
 
-`handle_input()` is responsible for handling user input and potentially producing an action. The return type is `Result<Option<Action>>` because this function call can fail. If it doesn't fail then it can optionally return an action. Not returning an action means that the user input was invalid.
+`handle_input()` is responsible for handling user input and potentially producing an action. The return type is `Result<Option<Action>>` because this function call can fail. If it doesn't fail then it can optionally return an action. Returning `None` means that the user input was invalid.
 
 __Actions__ 
 
@@ -61,7 +61,7 @@ User actions are represented by the `Action` Enum in `models.rs`.
 
 __Prompts__
 
-Prompts are used when more complicated user input is needed. For example, when creating a new epic the user is asked to enter an epic name and description. 
+Prompts are used when more complicated user input is needed. For example, when creating a new epic the user is asked to enter a name and description. 
 
 ## Steps
 
@@ -71,7 +71,7 @@ __Pages and Page Helpers__
 
 Pages are defined inside the UI module. Complete this step by finishing the TODOs in `pages/mod.rs`, `page_helpers.rs`, and `models.rs`. Make sure all the tests are passing.
 
-__NOTE 1:__ Status needs to implement the `Display` trait so that it can be printed to the screen. The implementation should result in the following Enum variant to string mapping:
+__NOTE 1:__ Status needs to implement the `Display` trait so it can be printed to the screen. The implementation should result in the following Enum variant to string mapping:
 
 * OPEN -> "OPEN"
 * InProgress -> "IN PROGRESS"
@@ -80,7 +80,7 @@ __NOTE 1:__ Status needs to implement the `Display` trait so that it can be prin
 
 __NOTE 2:__ `page_helpers.rs` contains a function called `get_column_string()` which is used to confine text to a specific character width. A dependency called `ellipse` was added to help accomplish this. Use the `truncate_ellipse()` function from the `ellipse` crate to implement `get_column_string()`.
 
-__NOTE 3:__ Use `get_column_string` inside the `draw_page()` methods.
+__NOTE 3:__ Use `get_column_string()` inside the `draw_page()` methods.
 
 __NOTE 4:__ The `iterools` dependency has also been added. This allows you to sort an iterator by calling `sorted()` on it.
 

@@ -2,9 +2,9 @@
 
 __Navigation and Program Loop__
 
-Now that the database and UI is complete, it's time to build the bridge between them. In this step we will be building the navigator and program loop. 
+Now that the database and UI are complete, it's time to build the bridge between them. In this step we will be building the navigator and program loop. 
 
-The navigator will handle navigating between pages, responding to actions returned from `handle_input()` on Page objects and displaying prompts.
+The navigator will handle navigating between pages, responding to actions returned from `handle_input()` on Page objects, and displaying prompts.
 
 The program loop is responsible for running our application and continuously asking for user input until the user exits the program.
 
@@ -16,7 +16,7 @@ __Implementing The Navigator__
 
 A new file called `navigator.rs` has been added. Inside this file a `Navigator` Struct is defined, which contains 3 fields. 
 
-`pages` is a vector of `Page` objects. This vector is used for navigation. The user starts off on the home page and if they navigate to the Epic details page (for example) a new instance of `EpicDetail` will be created and pushed onto the pages vector. To navigate back to the home page we will simply pop the `EpicDetail` page off the pages vector (which acts like a stack). The current page is always the last element in the `pages` vector.
+`pages` is a vector of `Page` objects. This vector is used for navigation. The user starts off on the home page and if they navigate to the Epic details page (for example) a new instance of `EpicDetail` will be created and pushed onto the pages vector. To navigate back to the home page we will simply pop the `EpicDetail` page off the pages vector (which acts like a stack). Note that the current page is always the last element in the `pages` vector.
 
 `prompts` is an instance of the `Prompts` Struct. Look at the navigator tests to see how we can mock colures in the prompts Struct.
 
@@ -26,15 +26,15 @@ The `Navigator` Struct contains 2 primary functions. `get_current_page()` which 
 
 To complete this step finish all the TODO items in `navigator.rs`.
 
-__NOTE 1:__ Use `with_context()` method the `anyhow!` macro form the anyhow crate inside `handle_action()` for error handling.
+__NOTE 1:__ Use `with_context()` and the `anyhow!` macro form the anyhow crate inside `handle_action()` for error handling.
 
-__NOTE 2:__ A method called `as_any()` has been added to all page object. This was done to support down-casting, which is used in the navigator tests. For more info check out [this StackOverflow post](https://stackoverflow.com/questions/33687447/how-to-get-a-reference-to-a-concrete-type-from-a-trait-object).
+__NOTE 2:__ A method called `as_any()` has been added to all page objects. This was done to support down-casting, which is used in the navigator tests. For more info check out [this StackOverflow post](https://stackoverflow.com/questions/33687447/how-to-get-a-reference-to-a-concrete-type-from-a-trait-object).
 
 ### Step 2
 
 __The Program Loop__
 
-The program loop will be defined inside `main.rs`. First we will instantiate the navigator. Then inside the program loop we will get the current page, render it, wait for the users's input and then handle the input. 
+The program loop will be defined inside `main.rs`. First we will instantiate the navigator. Then inside the program loop we will get the current page, render it, wait for user input and then handle the input. 
 
 To complete this task finish the TODO items in `main.rs`.
 
@@ -43,16 +43,16 @@ __NOTE 1:__ A new dependency called `clearscreen` has been added. At the top of 
 __NOTE 2:__ A function called `wait_for_key_press()` has been added to `io_utils.rs`. Use this method when displaying errors. For example:
 ```rust
 if let Err(error) = page.draw_page() {
-                println!("Error rendering page: {}\nPress any key to continue...", error);
-                wait_for_key_press();
-            };
+    println!("Error rendering page: {}\nPress any key to continue...", error);
+    wait_for_key_press();
+};
 ```
 
 ## Manual Tests
 
 Run these manual tests (___from top to bottom in order___) to see if your program works as expected.
 
-__NOTE:__ Before running these tests reset the database by updating `data/db.json` to this:
+__NOTE:__ Before running these tests, reset the database by updating `data/db.json` to this:
 ```json
 {
     "last_item_id": 0,

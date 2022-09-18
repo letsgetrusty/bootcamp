@@ -45,13 +45,13 @@ Here's a list of recommended action items to do during and after the development
 
 During Development:
 * You can either create your own Rust project and copy over the code in each step or clone this repo and finish the steps directly in this repo. 
-* Check the project description/requirements, to make sure you are building what is asked of you.
-* If you get stuck, as for help in the Discord server or look at the next step for the solution to the previous step.
+* Check the project description/requirements to make sure you are building what is asked of you.
+* If you get stuck, as for help in the Discord server or look at the next step for the solution to the current step.
 * Refactor as you implement. Keep your code clean and compartmentalized. Doing so makes debugging exponentially easier, as your implementation grows.
 * Make your code compiles and all tests are passing before moving on to the next step.
 
 After Development:
-* Run through the provided manual test cases (included in the last step's README), and fix any bugs! You are almost done, so finish the project strong!
+* Run through the provided manual test cases (included in the Stage 3 README), and fix any bugs! You are almost done, so finish the project strong!
 * Post your completed project on GitHub. You're a Rust developer now!
 * Showcase your project to your friends and family (at the very least, to others in the Let's Get Rusty community)!
 * After completing the project feel free to modify the program by changing the architecture, adding features, etc. This will help you make the project your own and better internalize the lessons you've learned.
