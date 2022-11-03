@@ -127,7 +127,7 @@ mod tests {
 
             let page = HomePage { db };
             assert_eq!(page.handle_input("").is_ok(), true);
-        } 
+        }
 
         #[test]
         fn handle_input_should_return_the_correct_actions() {
@@ -144,13 +144,17 @@ mod tests {
             let valid_epic_id = epic_id.to_string();
             let invalid_epic_id = "999";
             let junk_input = "j983f2j";
+            let junk_input_with_valid_prefix = "q983f2j";
+            let input_with_trailing_white_spaces = "q\n";
 
             assert_eq!(page.handle_input(q).unwrap(), Some(Action::Exit));
             assert_eq!(page.handle_input(c).unwrap(), Some(Action::CreateEpic));
             assert_eq!(page.handle_input(&valid_epic_id).unwrap(), Some(Action::NavigateToEpicDetail { epic_id: 1 }));
             assert_eq!(page.handle_input(invalid_epic_id).unwrap(), None);
             assert_eq!(page.handle_input(junk_input).unwrap(), None);
-        } 
+            assert_eq!(page.handle_input(junk_input_with_valid_prefix).unwrap(), None);
+            assert_eq!(page.handle_input(input_with_trailing_white_spaces).unwrap(), None);
+        }
     }
 
     mod epic_detail_page {
@@ -197,6 +201,8 @@ mod tests {
             let c = "c";
             let invalid_story_id = "999";
             let junk_input = "j983f2j";
+            let junk_input_with_valid_prefix = "p983f2j";
+            let input_with_trailing_white_spaces = "p\n";
 
             assert_eq!(page.handle_input(p).unwrap(), Some(Action::NavigateToPreviousPage));
             assert_eq!(page.handle_input(u).unwrap(), Some(Action::UpdateEpicStatus { epic_id: 1 }));
@@ -205,6 +211,8 @@ mod tests {
             assert_eq!(page.handle_input(&story_id.to_string()).unwrap(), Some(Action::NavigateToStoryDetail { epic_id: 1, story_id: 2 }));
             assert_eq!(page.handle_input(invalid_story_id).unwrap(), None);
             assert_eq!(page.handle_input(junk_input).unwrap(), None);
+            assert_eq!(page.handle_input(junk_input_with_valid_prefix).unwrap(), None);
+            assert_eq!(page.handle_input(input_with_trailing_white_spaces).unwrap(), None);
         } 
     }
 
@@ -258,12 +266,16 @@ mod tests {
             let d = "d";
             let some_number = "1";
             let junk_input = "j983f2j";
+            let junk_input_with_valid_prefix = "p983f2j";
+            let input_with_trailing_white_spaces = "p\n";
 
             assert_eq!(page.handle_input(p).unwrap(), Some(Action::NavigateToPreviousPage));
             assert_eq!(page.handle_input(u).unwrap(), Some(Action::UpdateStoryStatus { story_id }));
             assert_eq!(page.handle_input(d).unwrap(), Some(Action::DeleteStory { epic_id, story_id }));
             assert_eq!(page.handle_input(some_number).unwrap(), None);
             assert_eq!(page.handle_input(junk_input).unwrap(), None);
+            assert_eq!(page.handle_input(junk_input_with_valid_prefix).unwrap(), None);
+            assert_eq!(page.handle_input(input_with_trailing_white_spaces).unwrap(), None);
         } 
     }
 }
