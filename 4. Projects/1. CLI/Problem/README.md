@@ -4,6 +4,8 @@
 
 ___Please read the project description thoroughly BEFORE getting started.___
 
+___Re-visit the project description multiple times DURING your design and development process, to ensure you're meeting the project requirements.___
+
 ## Problem Statement
 We will build a Jira clone for the terminal.
 
@@ -20,6 +22,9 @@ NOTE: If you're not familiar with Jira, create an [Atlassian account online](htt
 __Jira, Epic & Story__
 
 Jira is an industry-standard tool for tracking progress of (not limited to) software projects. An Epic is usually used for entire initiatives, while a Story is a smaller unit of work with more specific instructions.
+
+__Model__
+Models describe how information is organized, transmitted or stored.
 
 __Database / Storage / Persistence__
 
@@ -46,7 +51,7 @@ Here's a list of recommended action items to do during and after the development
 During Development:
 * You can either create your own Rust project and copy over the code in each step or clone this repo and finish the steps directly in this repo. 
 * Check the project description/requirements to make sure you are building what is asked of you.
-* If you get stuck, as for help in the Discord server or look at the next step for the solution to the current step.
+* If you get stuck, ask for help in the Discord server or look at the next step for the solution to the current step.
 * Refactor as you implement. Keep your code clean and compartmentalized. Doing so makes debugging exponentially easier, as your implementation grows.
 * Make your code compiles and all tests are passing before moving on to the next step.
 
