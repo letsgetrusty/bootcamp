@@ -2,7 +2,7 @@
 
 __Database and Models__
 
-In backend development projects, the database design is often the very first task to complete and complete well. The database design determines what and how information is imported and stored for repeated usages. While designing the database (what technologies to use, how to model it, etc.), we can very quickly assess if the project is feasible and if we can meet the requirements.
+In backend development projects, the database design is often the very first task to complete. The database design determines what and how information is imported and stored for repeated usages. While designing the database (what technologies to use, how to model it, etc.), we can very quickly assess if the project is feasible and if we can meet the requirements.
 
 In this project, we will persist Epic and Story records in a JSON file to keep things as simple as possible. The JSON model contains the following components:
 * `last_item_id` - A global integer ID counter for both Epics and Stories. Each newly created Epic/Story will increment the counter.

@@ -1,4 +1,4 @@
-# Jira Clone
+# StackOverflow Clone
 
 ## IMPORTANT NOTE
 
@@ -7,30 +7,33 @@ ___Please read the project description thoroughly BEFORE getting started, especi
 ___Re-visit the project description multiple times DURING your design and development process, to ensure you're meeting the project requirements.___
 
 ## Problem Statement
-We will build a Jira clone for the terminal.
+We will build an API for a StackOverflow-like app.
 
-We will build two primary features in Jira:
-1. Epic CRUD
-2. Story CRUD
+We will build two primary features in StackOverflow:
+1. Question creation, retrieval & deletion
+2. Answer creation, retrieval & deletion
 
-![jira-gif](./jira-cli.gif)
-
-NOTE: If you're not familiar with Jira, create an [Atlassian account online](https://www.atlassian.com/software/jira) and try it out, or watch a YouTube tutorial.
+![api-gif](./api.gif)
 
 ## Objective
 In this project, we aim to learn and practice the following:
-* Building CLI apps in Rust
-* Reading & writing to disk
-* Using third-party crates (like `serde`, `anyhow`, `itertools`, etc.)
+* Designing & building APIs
+* Using a backend framework (Rocket)
+* Designing SQL models
+* Hands-on usage of Postgres
 * Writing testable code
 * Organizing code using modules
 * Navigating and contributing to an existing code base
 
 ## Terminologies
 
-__Jira, Epic & Story__
+__StackOverflow, Question & Answer__
 
-Jira is an industry-standard tool for tracking progress of (not limited to) software projects. An Epic is usually used for entire initiatives, while a Story is a smaller unit of work with more specific instructions.
+StackOverflow is an industry-standard forum for posting programming related questions and getting crowd-sourced answers. A user posts a question under the user's account, and other users can contribute different answers as they see most appropriate per question. There are additional features on StackOverflow, such as upvoting the question or its corresponding answers. However, question and answer creation, retrieval and deletion are the most primitive.
+
+__API / Endpoint__
+
+API and endpoint are often used interchangeably. They are the backend component that acts as the point of contact for frontend clients. Web APIs use the [HTTP protocol](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview) to exchange messages with frontend clients. The design of the APIs or endpoints determines how the frontend and backend communicate with one another.
 
 __Model__
 Models describe how information is organized, transmitted or stored.
@@ -39,20 +42,9 @@ __Database / Storage / Persistence__
 
 Database, storage and persistence are often used interchangeably. They represent the component we use to store and access information for the application.
 
-__CRUD__
+__CRUD & DAO__
 
-CRUD stands for actions of creation, read, update & deletion.
-
-## Stages
-The project is split into multiple stages, each containing steps. Each step has a partially built Rust program with TODO items for you to finish. The TODO items are either `TODO` comments or `todo!()` macros. Most steps will include failing tests which you need to make pass by completing the TODO items. 
-
-Each stage will have it's own README file with more details.
-
-To complete the project go through each stage and step in order.
-
-If you get stuck look at the next step for the solution to the current step.
-
-You can find the final project in the `Solution` folder, one directory up.
+CRUD stands for actions of creation, read, update & deletion. DAO stands for data access object and is an interface in the application to perform these actions against the database.
 
 ## Recommendations
 Here's a list of recommended action items to do during and after the development, to help you more effectively build the project and learn from the project.
@@ -60,6 +52,7 @@ Here's a list of recommended action items to do during and after the development
 During Development:
 * You can either create your own Rust project and copy over the code in each step or clone this repo and finish the steps directly in this repo. 
 * Check the project description/requirements to make sure you are building what is asked of you.
+* Utilize the included unit tests to help debug your implementation.
 * If you get stuck, ask for help in the Discord server or look at the next step for the solution to the current step.
 * Refactor as you implement. Keep your code clean and compartmentalized. Doing so makes debugging exponentially easier, as your implementation grows.
 * Make sure your code compiles and all tests are passing (if applicable) before moving on to the next step.
@@ -74,7 +67,7 @@ After Development:
 
 __Will there a template to build the project on top of?__
 
-Yes. Each step has a partially built Rust project for you to finish. Stages and steps build on top of each other until you have a completed project. 
+Yes. Each step has a partially built Rust project for you to finish. Stages and steps build on top of each other until you have a completed project.
 
 __Should my implementation look exactly like the solution?__
 
@@ -91,21 +84,21 @@ The project is split into multiple stages. Please keep in mind, some implementat
 
 ### Stage 1
 
-__Database and Models__
+__API (endpoints & models)__
 
-In this state we will design our models, persist them in a JSON file, and build CRUD operations for Epics and Stories.
+In this stage we will design our API and implement stub endpoints.
 
 ### Stage 2
 
-__UI (pages and prompts)__
+__Persistence (connection & DAOs)__
 
-In this state we will implement the user interface for our application. 
+In this stage we will setup PostgreSQL, create our database schema, and connect to our database from Rust code. We will also create DAOs for questions and answers.
 
 ### Stage 3
 
-__Navigation and Program Loop__
+__Connecting endpoints with DAOs__
 
-In this stage we will hook up our persistent storage component to the UI. We will also implement navigation and the program loop.
+In this stage we will hook up our DAOs with our endpoint handlers. After this step you will have a fully functioning API!
 
 ## Get Started!
 
