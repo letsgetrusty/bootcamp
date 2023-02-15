@@ -376,7 +376,6 @@ mod tests {
 
     mod database {
         use std::collections::HashMap;
-        use std::fs::{remove_file};
         use std::io::Write;
 
         use super::*;
