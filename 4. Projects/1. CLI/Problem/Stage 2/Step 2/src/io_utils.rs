@@ -7,7 +7,5 @@ pub fn get_user_input() -> String {
         .read_line(&mut user_input)
         .unwrap();
 
-
     user_input
-
 }
