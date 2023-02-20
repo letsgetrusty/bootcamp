@@ -130,4 +130,4 @@ New Status (1 - OPEN, 2 - IN-PROGRESS, 3 - RESOLVED, 4 - CLOSED):
 3
 ```
 
-__NOTE:__ a new file called `ui_utils.rs` has been added. This file contains a function called `get_user_input()`. Use this function inside the prompt functions for getting user input.
+__NOTE:__ a new file called `io_utils.rs` has been added. This file contains a function called `get_user_input()`. Use this function inside the prompt functions for getting user input.
