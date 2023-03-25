@@ -92,6 +92,7 @@ mod tests {
             let read_result = db.read_db().unwrap();
 
             assert_eq!(write_result.is_ok(), true);
+            // TODO: fix this error by deriving the appropriate traits for DBState
             assert_eq!(read_result, state);
         }
     }

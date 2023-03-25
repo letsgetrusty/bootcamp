@@ -442,5 +442,6 @@ mod tests {
 
             assert_eq!(write_result.is_ok(), true);
             assert_eq!(read_result, state);
-        }    }
+        }
+    }
 }
