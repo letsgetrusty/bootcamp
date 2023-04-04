@@ -5,7 +5,6 @@ use std::{collections::HashMap, io};
 fn parse_card_numbers(card: &str) -> Vec<u32> {
     let numbers = card
         .split(" ")
-        .into_iter()
         .map(|s| {
             s.parse()
         })

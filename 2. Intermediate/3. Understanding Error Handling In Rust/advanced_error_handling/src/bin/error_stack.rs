@@ -17,7 +17,6 @@ impl Error for ParsePaymentInfoError {}
 fn parse_card_numbers(card: &str) -> Result<Vec<u32>, ParsePaymentInfoError> {
     let numbers = card
         .split(" ")
-        .into_iter()
         .map(|s| {
             s.parse()
             .report()
