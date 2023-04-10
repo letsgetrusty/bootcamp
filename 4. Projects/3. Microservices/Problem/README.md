@@ -75,33 +75,25 @@ The project is split into multiple stages. Please keep in mind, some implementat
 
 ### Stage 1
 
-__Auth microservice__
+__Implementing service__
 
-In this stage we will implement the authentication microservice.
+- implement auth service
+- implement health service
+- implement client
 
 ### Stage 2
 
-__Client__
+__Docker and CI__
 
-In this stage we wil implement a client that can call the authentication microservice.
+- Setup docker
+- Setup CI
 
 ### Stage 3
 
-__Health check microservice__
+__Deployment (optional)__
 
-In this stage we will implement the health check microservice which will monitor the auth microservice.
-
-### Stage 4
-
-__Deployment__
-
-In this stage we will deploy the auth microservice and the health check microservice locally using Docker.
-
-### Stage 5
-
-__Github CI__
-
-In this stage we will setup continuous integration for our 3 repositories (client, auth service, and health check service) using Github actions.
+- Setup Digital Ocean
+- Setup deployment via GitHub actions
 
 ## Get Started!
 
