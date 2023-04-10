@@ -7,7 +7,7 @@ ___Please read the project description thoroughly BEFORE getting started, especi
 ___Re-visit the project description multiple times DURING your design and development process, to ensure you're meeting the project requirements.___
 
 ## Problem Statement
-We will build an authentication microservice, a health check microservice, and a client.
+We will build a microservice app consisting of 2 services, an authentication service and a health check service. We will also build a client that can communicate with the auth service.
 
 The auth service will have three primary features:
 1. Sign in
@@ -20,7 +20,7 @@ The auth service will have three primary features:
 In this project, we aim to learn and practice the following:
 * Designing, building, and deploying microservices
 * Monitoring the health of microservices
-* Setting up continuous integration
+* Setting up continuous integration & continuous deployment
 * Using gRPC to communicate between microservices
 * Using session based authentication
 * Writing testable code
@@ -33,15 +33,11 @@ __Session based authentication__
 
 [Session based auth](https://www.geeksforgeeks.org/session-vs-token-based-authentication/) works by giving the client a session token which can be used in subsequent requests to authenticate the user.
 
-__Model__
-
-Models describe how information is organized, transmitted or stored. In Rust models are defined as `enums` and `structs`.
-
 ## Recommendations
 Here's a list of recommended action items to do during and after the development, to help you more effectively build the project and learn from the project.
 
 During Development:
-* You can either create your own Rust project and copy over the code in each step or clone this repo and finish the steps directly in this repo. 
+* For this project create your own GitHub repo and copy over the code from Stage 1, Step 1. Having your own repro is important for the GitHub CI/CD to work.
 * Check the project description/requirements to make sure you are building what is asked of you.
 * Utilize the included unit tests to help debug your implementation.
 * If you get stuck, ask for help in the Discord server or look at the next step for the solution to the current step.
@@ -49,7 +45,7 @@ During Development:
 * Make sure your code compiles and all tests are passing (if applicable) before moving on to the next step.
 
 After Development:
-* Run through the provided manual test cases (included in the Stage 3 README), and fix any bugs! You are almost done, so finish the project strong!
+* Run through the provided manual test cases (included in the Stage 2 README), and fix any bugs! You are almost done, so finish the project strong!
 * Post your completed project on GitHub. You're a Rust developer now!
 * Showcase your project to your friends and family (at the very least, to others in the Let's Get Rusty community)!
 * After completing the project feel free to modify the program by changing the architecture, adding features, etc. This will help you make the project your own and better internalize the lessons you've learned.
@@ -75,25 +71,15 @@ The project is split into multiple stages. Please keep in mind, some implementat
 
 ### Stage 1
 
-__Implementing service__
+__Implementing the services & client__
 
-- implement auth service
-- implement health service
-- implement client
+In this stage we implement the auth and health check services, set-up communication between them, and create a stand-alone client that can call the auth service.
 
 ### Stage 2
 
-__Docker and CI__
+__Docker & CI/CD__
 
-- Setup docker
-- Setup CI
-
-### Stage 3
-
-__Deployment (optional)__
-
-- Setup Digital Ocean
-- Setup deployment via GitHub actions
+In this stage we will "Dockerize" our app, add continuous integration via GitHub Actions, and also implement continuous deployment to Digital Ocean.
 
 ## Get Started!
 
