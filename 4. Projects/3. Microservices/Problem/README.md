@@ -79,7 +79,7 @@ In this stage we implement the auth and health check services, set-up communicat
 
 __Docker & CI/CD__
 
-In this stage we will "Dockerize" our app, add continuous integration via GitHub Actions, and also implement continuous deployment to Digital Ocean.
+In this stage we will "Dockerize" our app, add continuous integration via GitHub Actions, and also implement continuous deployment to DigitalOcean.
 
 ## Get Started!
 
