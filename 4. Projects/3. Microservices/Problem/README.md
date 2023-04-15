@@ -9,6 +9,8 @@ ___Re-visit the project description multiple times DURING your design and develo
 ## Problem Statement
 We will build a microservice app consisting of 2 services, an authentication service and a health check service. We will also build a client that can communicate with the auth service.
 
+![Microservices](./microservices.png)
+
 The auth service will have three primary features:
 1. Sign in
 2. Sign up
