@@ -18,7 +18,7 @@ Rust has a minimal runtime, which means we will need to use several third-party 
 
 [tonic](https://crates.io/crates/tonic) is a Rust implementation of gRPC. It is composed of three main components: the generic gRPC implementation, the high performance HTTP/2 implementation and the codegen powered by [prost](https://crates.io/crates/prost).
 
-[tonic-build](https://crates.io/crates/tonic-build) is a development dependency that we use inside our build script (see `build.rs` below) to compile proto files via `prost` and generate service stubs and proto definitiones for use with tonic.
+[tonic-build](https://crates.io/crates/tonic-build) is a development dependency that we use inside our build script (see `build.rs` below) to compile proto files via `prost` and generate service stubs and proto definitions for use with tonic.
 
 ### pbkdf2 & rand_core
 
@@ -73,7 +73,7 @@ This is the entry point of the client.
 
 **Cargo.toml**
 
-In this file we have defined 3 binaries crates, `auth`, `client`, and `health-check`. We have also listed all the dependencies required for this project.
+Thus file defined our 3 binaries crates, `auth`, `client`, and `health-check`. Additionally, all the dependencies required for this project are included as well.
 
 ## Steps
 
@@ -83,14 +83,14 @@ __Project setup__
 
 To start this project follow these steps:
 
-1. Create a new Rust project by running `cargo new NAME_OF_YOUR_PROJECT`. This is going to be the mono-repo where the microservices and client are stored.
+1. Create a new Rust project by running `cargo new microservice-project`. This is going to be the mono-repo where the microservices and client are stored.
 2. Create a Github repository and add it as the remote repository for the Rust project you created in the previous step.
 3. Replace the contents of your Rust project with the files/folders in Step 1.
 4. Install protoc: https://grpc.io/docs/protoc-installation/
 
 Your project is now setup. Review all the files and make sure you understand what each one does. Look at the `Third Party Libraries` and `Project Structure` sections above for guidance.
 
-To make sure everything is working run each binary:
+To make sure everything is working, run each binary:
 ```bash
 cargo run --bin auth
 ```
@@ -141,15 +141,15 @@ __NOTE 1:__ Make sure all the tests pass by running `cargo test`.
 
 __NOTE 2:__ Read through all the code to make sure you understand what's going on.
 
-__NOTE 3:__ For simplicity the health check services simply logs responses to standard out. Ideally a health check service would implement more robust logging and some sort of alerting.
+__NOTE 3:__ For simplicity the health check service simply logs responses to standard out. Ideally a health check service would implement more robust logging and alerting.
 
 ### Step 4
 
 __Implementing the client__
 
-Now that we've implemented our 2 services it's time to create a CLI client that will allow us to send requests to the auth services with custom input.
+Now that we've implemented our 2 services it's time to create a CLI client that will allow us to send custom requests to the auth service.
 
-To implement the health-check service complete all the TODO items in `health-check/main.rs`.
+To implement the client complete all the TODO items in `client/main.rs`.
 
 __NOTE 1:__ Make sure all the tests pass by running `cargo test`.
 
@@ -161,11 +161,11 @@ After completing steps 1-4 you should have a fully functioning microservice appl
 
 Let's test it out!
 
-__NOTE:__ We are going to use [cargo watch](https://github.com/watchexec/cargo-watch) to automatically restart ours services when source files change so make sure you have it installed.
+__NOTE:__ We are going to use [cargo watch](https://github.com/watchexec/cargo-watch) to automatically restart ours services when source files change, so make sure you have it installed.
 
 First build the project by running `cargo build`.
 
-Then start execute the following commands in different terminal windows:
+Then execute the following commands in different terminal windows:
 
 ```bash
 cargo watch -c -q -w src/auth-service -x "run -q --bin auth"
@@ -180,8 +180,8 @@ You should see both services printing to standard out.
 
 ---
 
-Now let's use the client to issue custom commands to the auth service.
+Now let's use the client to issue custom requests to the auth service.
 
 To see the commands available run `./target/debug/client help`
 
-Then try sining up a new user, sining in, and signing out.
+Then try signing up a new user, signing in, and signing out.

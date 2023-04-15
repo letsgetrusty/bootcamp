@@ -2,7 +2,7 @@
 
 __Overview__
 
-You now have a functioning app however it only runs on your local machine. In this stage we will go through the process of deploying your app so you can show it off to others! We will also setup continuous integration to prevent code changes from breaking your app.
+You now have a functioning app however it only runs on your local machine. In this stage we will go through the process of deploying your app so you can show it off to others! We will also setup continuous integration to prevent new code changes from breaking your app.
 
 ## CI/CD Tools
 
@@ -10,13 +10,17 @@ There are the tools we'll be using to setup CI/CD.
 
 ### Github Actions
 
-[GitHib Actions](https://docs.github.com/en/actions) allow us to execute arbitrary workflows by simply adding a `YAML` file to our repository.
+[GitHib Actions](https://docs.github.com/en/actions) allow you to execute arbitrary workflows by simply adding a `YAML` file to your repository.
 
 Here is a great overview video: https://youtu.be/eB0nUzAI7M8
 
 ### Docker
 
-[Docker](https://www.docker.com/) is a platform for building, running, and shipping applications in containers. Containerization is a technology that allows developers to package an application with all of its dependencies into a standardized unit, called a container, which can be easily deployed across different environments, including local machines, data centers, and cloud providers. Containers are lightweight, portable, and secure, enabling teams to build and deploy applications faster and more reliably.
+[Docker](https://www.docker.com/) is a platform for building, running, and shipping applications in containers. 
+
+Containerization is a technology that allows developers to package an application with all of its dependencies into a standardized unit, called a container, which can be easily deployed across different environments, including local machines, data centers, and cloud providers. Containers are lightweight, portable, and secure, enabling teams to build and deploy applications faster and more reliably.
+
+Docker images are the blueprints or templates used to create Docker containers. An image contains all the necessary files, libraries, and dependencies required to run an application. A container, on the other hand, is a running instance of an image. It's a lightweight, isolated environment that runs the application and its dependencies. Multiple containers can be created from the same image, each with its own unique state and running independently.
 
 Here is a great overview video: https://youtu.be/Gjnup-PuquQ
 
@@ -35,23 +39,26 @@ __Configuring Docker__
 Follow these steps to setup Docker:
 
 1. Create an account on [Docker Hub](https://hub.docker.com/). This is where we will push our images.
-2. Install Docker Desktop: https://docs.docker.com/get-docker/.
+2. Install Docker Desktop: https://docs.docker.com/get-docker/
 3. Launch Docker Desktop
 4. Copy over `.dockerignore`, `Dockerfile-auth`, `Dockerfile-health`, and `docker-compose.yaml` to your repository.
-5. Inside `Dockerfile-health` and `docker-compose.yaml`, replace "auth-microservice" with the name of your root directory.
-6. Inside `docker-compose.yaml` replace "letsgetrusty" with your Docker Hub username.
+5. Inside `docker-compose.yaml` replace "letsgetrusty" with your Docker Hub username.
 
----
+__File overview__
 
 `.dockerignore`
 
-We use this file to tell Docker which files it should ignore.
+Similar to `.gitignore` this tells Docker which files/directories it should ignore.
+
+---
 
 `Dockerfile-auth` & `Dockerfile-health`
 
 These are the Docker files for our two services. 
 
----
+A Dockerfile is a script that contains instructions to build a Docker image. It specifies the base image to use, adds application code, and sets up configuration options. By running a Dockerfile, developers can automate the creation of Docker images, making it easier to deploy and scale applications.
+
+Let's take a look at the contents of `Dockerfile-auth`:
 
 ```docker
 FROM rust:1.68.2-alpine3.17 AS chef
@@ -71,7 +78,7 @@ COPY . .
 RUN cargo chef prepare --recipe-path recipe.json
 
 FROM chef AS builder
-COPY --from=planner /auth-microservice/recipe.json recipe.json
+COPY --from=planner /microservice-project/recipe.json recipe.json
 # Build dependencies - this is the caching Docker layer!
 RUN cargo chef cook --release --recipe-path recipe.json
 # Build application
@@ -84,16 +91,20 @@ Then we run `cargo-chef`, install `protoc`, and build the service  in release mo
 
 ```docker
 FROM debian:buster-slim AS runtime
-WORKDIR /auth-microservice
-COPY --from=builder /auth-microservice/target/release/auth /usr/local/bin
+WORKDIR /microservice-project
+COPY --from=builder /microservice-project/target/release/auth /usr/local/bin
 ENTRYPOINT ["/usr/local/bin/auth"]
 ```
 
 Finally we create a new bare-bones image, copy over the binary we created in the previous step, and execute it! One of the advantages of Rust is that our apps can be compiled down to a single binary.
 
+---
+
 `docker-compose.yaml`
 
-[Docker Compose](https://docs.docker.com/compose/) is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration.
+[Docker Compose](https://docs.docker.com/compose/) is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. A service is a high-level concept that refers to a set of containers running the same image. Then, with a single command, you create and start all the services from your configuration.
+
+In our case we need to define an auth service and a health check service:
 
 ```yaml
 version: "3.9"
@@ -117,8 +128,6 @@ services:
       - "50051:50051" # expose port 50051 so that applications outside the container can connect to it 
 ```
 
-In our case we need to define an auth service and a health check service. 
-
 ---
 
 After completing the steps above you should be able to start your application via Docker Compose.
@@ -129,7 +138,7 @@ You should see console log output from both services in your terminal.
 
 Press `CTRL-C` in your terminal window to stop the services.
 
-Congratulations, you've Dockerized your app and are now ready to deploy it! 
+Congratulations, you've Dockerized your app and are now ready to deploy it!
 
 ### Step 2
 
@@ -137,11 +146,11 @@ __Setting up continuous integration__
 
 Before we talk about continuous deployment let's setup continuous integration. 
 
-Specifically, we will add a GitHub Actions workflow that builds and tests our code before it is merged into master.
+Specifically, we will add a GitHub Actions workflow that builds and tests your code before it is merged into master.
 
 Copy over the `.github/workflow/prod.yml` file to your repository. 
 
----
+This file defines the workflow. Let's go through it:
 
 ```yaml
 on:
@@ -153,7 +162,7 @@ on:
       - master
 ```
 
-First we define when we want our workflow to run. In this case we want to run the workflow whenever code gets pushed to master or when a pull request for the master branch is created.
+First we define when we want our workflow to run. In this case we want to run the workflow whenever code gets pushed to master or when a pull request targeting the master branch is created.
 
 ```yaml
 jobs:
@@ -181,7 +190,7 @@ Then we define each step in our `build` job. First we install protoc and checkou
         restore-keys: ${{ runner.os }}-cargo-
 ```
 
-Then we use the cache action to cache the `/.cargo` and `target/` directories. 
+Then we use the cache action to cache the `/.cargo` and `target/` directories. This will decrease compile times between runs.
 
 ```yaml
     - name: Install Rust
@@ -202,7 +211,7 @@ Finally we build and test the app.
 
 ![Github Actions](gh_actions.png)
 
-After adding `.github/workflow/prod.yml` to your repository and pushing the changes up to master, you should see your Github Action execute.
+After adding `.github/workflow/prod.yml` to your repository and pushing the changes up to master, you should see your workflow execute.
 
 ### Step 3 (Optional)
 
@@ -216,7 +225,7 @@ To setup continuous deployment follow these steps:
 
 1. Create a DigitalOcean account: https://www.digitalocean.com/
 
-2. Create a Digital Ocean droplet. The config I used is listed below but feel free to use your own (Make sure to use `Password` as the authentication method!).
+2. Create a Digital Ocean droplet. The config I used is listed below but feel free to use your own (*Make sure to use `Password` as the authentication method!*).
 
     - __Region:__ New York
     - __Data center:__ NYC 1
@@ -225,7 +234,7 @@ To setup continuous deployment follow these steps:
     - __Authentication Method:__ Password
     - __Hostname:__ rust-microservice-project
     ---
-    __NOTE:__ Make sure to save the password somewhere safe. We will use it in following steps.
+    __NOTE:__ Make sure to save the Droplet's password somewhere safe. We will use it in following steps.
 
 3. Configure droplet
 
@@ -240,9 +249,9 @@ To setup continuous deployment follow these steps:
         sudo apt-get install docker-compose
         ```
 
-4. Update GitHub Action
+4. Update GitHub workflow
 
-    Next we will update our GitHub action to deploy our app anytime changes are pushed to master. 
+    Next we will update our GitHub workflow to deploy the app anytime changes are pushed to master. 
     
     Copy over `.github/workflow/prod.yml` to your repository. Notice that now the workflow only runs when changes are pushed to master (not when creating PRs).
 
@@ -309,62 +318,62 @@ To setup continuous deployment follow these steps:
             docker-compose pull
             docker-compose up -d
     ```
-    Finally we ssh into our droplet and deploy our docker containers.
+    Finally we ssh into our droplet and deploy the docker containers.
 
 5. Update Github Secrets & Variables
 
-  You may have noticed that the new `.github/workflow/prod.yml` file has some variables in it (ex: `vars.DROPLET_IP` and `secrets.DROPLET_PASSWORD`). These secrets & variables will need to be defined inside your GitHub repo for the workflow to succeed.
+    You may have noticed that the new `.github/workflow/prod.yml` file has some variables in it (ex: `vars.DROPLET_IP` and `secrets.DROPLET_PASSWORD`). These secrets & variables will need to be defined inside your GitHub repo for the workflow to succeed.
 
-  Secrets are encrypted variables that you create in an organization, repository, or repository environment. The secrets that you create are available to use in GitHub Actions workflows.
+    Secrets are encrypted variables that you can create for a repository. Secrets are available to use in GitHub Actions workflows.
 
-  To add new secrets 
-  1. Navigate to your repository on https://github.com/
-  2. Click on the `Settings` tab
-  3. In the left-side panel click `Secrets and variables` underneath the security section and then click `Actions`.
-  4. Add the following secrets
-    - `DOCKER_USERNAME` - Your Docker Hub username
-    - `DOCKER_PASSWORD` - Your Docker Hub password
-    - `DO_TOKEN` - Your Digital Ocean API token. Create a new token by logging into Digital Ocean, clicking on `API` in the left-had panel and then clicking `Generate New Token`. 
-    - `DROPLET_PASSWORD` - You droplet password
+    Add the required secrets by following these steps:
+    1. Navigate to your repository on https://github.com/
+    2. Click on the `Settings` tab
+    3. In the left side-panel click `Secrets and variables` underneath the `Security` section and then click `Actions`.
+    4. Add the following secrets
+      - `DOCKER_USERNAME` - Your Docker Hub username
+      - `DOCKER_PASSWORD` - Your Docker Hub password
+      - `DO_TOKEN` - Your Digital Ocean API token. Create a new token by logging into Digital Ocean, clicking on `API` in the left side-panel and then clicking `Generate New Token`. 
+      - `DROPLET_PASSWORD` - You droplet password
+    
+        ![Github Secrets](gh_secrets.png)
 
-  ![Github Secrets](gh_secrets.png)
+    Now that the secrets are defined we will add one regular variable:
 
-  Now that the secrets are defined we will add one variable:
+    1. Click on the `Variables` tab in GitHub
+    2. Create a new variable called `DROPLET_IP` and set the value to your droplet's IP address.
 
-  1. Click on the `Variables` tab in GitHub
-  2. Create a new variable called `DROPLET_IP` and set the value to your droplet's IP address.
+        ![Github Variables](gh_variables.png)
 
-  ![Github Variables](gh_variables.png)
-
-  After adding these secrets you should be able to push your updated `.github/workflow/prod.yml` file to the `master` branch and have your project automatically deployed.
+    After adding these secrets/variables you should be able to push your updated `.github/workflow/prod.yml` file to the `master` branch and have your project automatically deployed.
 
 6. Check droplet
 
-  After the GitHub workflow finished deploying your project, check that your contains are running by following these steps:
+    After the GitHub workflow finishes deploying your project, check that your app is running by following these steps:
 
-  - SSH into your droplet https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/
-  - Run `docker ps` to see which containers are up
+    1. SSH into your droplet https://docs.digitalocean.com/products/droplets/how-to/connect-with-ssh/
+    2. Run `docker ps` to see which containers are up
 
-  You should see 2 containers running:
+        You should see 2 containers running. Example output:
 
-  ```bash
-  root@rust-microservice-project:~# docker ps
-  CONTAINER ID   IMAGE                       COMMAND                  CREATED      STATUS        PORTS                                           NAMES
-  8805358e487d   letsgetrusty/health-check   "/usr/local/bin/heal…"   4 days ago   Up 4 days                                                     root_health-check_1
-  a18f0935f7bb   letsgetrusty/auth           "/usr/local/bin/auth"    4 days ago   Up 17 hours   0.0.0.0:50051->50051/tcp, :::50051->50051/tcp   root_auth_1
-  root@rust-microservice-project:~#
-  ```
+        ```bash
+        root@rust-microservice-project:~# docker ps
+        CONTAINER ID   IMAGE                       COMMAND                  CREATED      STATUS        PORTS                                           NAMES
+        8805358e487d   letsgetrusty/health-check   "/usr/local/bin/heal…"   4 days ago   Up 4 days                                                     root_health-check_1
+        a18f0935f7bb   letsgetrusty/auth           "/usr/local/bin/auth"    4 days ago   Up 17 hours   0.0.0.0:50051->50051/tcp, :::50051->50051/tcp   root_auth_1
+        root@rust-microservice-project:~#
+        ```
 
 7. Connect to your droplet
 
-Finally we will use our local client to connect to the auth service running in your droplet.
+    Finally use your local client to connect to the auth service running in your droplet.
 
-Run the following command in the root of your project folder:
-```bash
-AUTH_SERVICE_IP=555.555.555.55 cargo run --bin client
-```
+    Run the following command in the root of your project folder:
+    ```bash
+    AUTH_SERVICE_IP=555.555.555.55 cargo run --bin client
+    ```
 
-Replace `555.555.555.55` with your droplets IP address.
+    Replace `555.555.555.55` with your droplets IP address.
 
 ## Final Note
 
