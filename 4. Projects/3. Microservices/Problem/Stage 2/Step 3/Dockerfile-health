@@ -1,0 +1,26 @@
+FROM rust:1.68.2-alpine3.17 AS chef
+USER root
+# remove the line below when switching to >=rust:1.70.0. sparse mode is planned to be the default in Rust 1.70.0
+ENV CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
+RUN apk add --no-cache musl-dev & cargo install cargo-chef
+WORKDIR /microservice-project
+
+FROM chef AS planner
+COPY . .
+RUN cargo chef prepare --recipe-path recipe.json
+
+FROM chef AS builder
+COPY --from=planner /microservice-project/recipe.json recipe.json
+# Build dependencies - this is the caching Docker layer!
+RUN cargo chef cook --release --recipe-path recipe.json
+# Build application
+RUN apk add --no-cache protoc
+COPY . .
+RUN cargo build --release --bin health-check
+
+# We do not need the Rust toolchain to run the binary!
+FROM debian:buster-slim AS runtime
+WORKDIR /microservice-project
+COPY --from=builder /microservice-project/target/release/health-check /usr/local/bin
+ENV AUTH_SERVICE_HOST_NAME=auth
+ENTRYPOINT ["/usr/local/bin/health-check"]

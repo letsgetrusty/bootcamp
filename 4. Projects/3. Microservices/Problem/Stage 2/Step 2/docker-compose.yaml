@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  health-check:
+    image: letsgetrusty/health-check
+    build:
+      context: .
+      dockerfile: Dockerfile-health
+    restart: "always"
+    depends_on:
+      auth:
+        condition: service_started
+  auth:
+    image: letsgetrusty/auth
+    build:
+      context: .
+      dockerfile: Dockerfile-auth
+    restart: "always"
+    ports:
+      - "50051:50051"

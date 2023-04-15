@@ -1,0 +1,41 @@
+syntax = "proto3";
+package authentication;
+
+service Auth {
+    rpc SignUp (SignUpRequest) returns (SignUpResponse);
+    rpc SignIn (SignInRequest) returns (SignInResponse);
+    rpc SignOut (SignOutRequest) returns (SignOutResponse);
+}
+
+message SignUpRequest {
+    string username = 1;
+    string password   = 2;
+}
+
+message SignUpResponse {
+    StatusCode statusCode = 1;
+}
+
+message SignInRequest {
+    string username = 1;
+    string password   = 2;
+}
+
+message SignInResponse {
+    StatusCode statusCode = 1;
+    string userUuid = 2;
+    string sessionToken = 3;
+}
+
+message SignOutRequest {
+    string sessionToken = 1;
+}
+
+message SignOutResponse {
+    StatusCode statusCode = 1;
+}
+
+enum StatusCode {
+    FAILURE = 0;
+    SUCCESS = 1;
+}
