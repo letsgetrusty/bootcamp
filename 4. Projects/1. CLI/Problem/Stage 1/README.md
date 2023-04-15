@@ -71,7 +71,7 @@ Complete this step by finishing the TODO items in `db.rs` and `models.rs`.
 
 __Add CRUD operations for Epics/Stories__
 
-Another Struct called `JiraDatabase` has been added to `db.rc`. This Struct will contain CRUD methods for Epics and Stories. 
+Another Struct called `JiraDatabase` has been added to `db.rs`. This Struct will contain CRUD methods for Epics and Stories. 
 
 Complete this step by finishing the TODO items in `db.rs`. 
 
