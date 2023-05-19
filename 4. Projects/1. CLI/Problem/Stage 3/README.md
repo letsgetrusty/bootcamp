@@ -67,11 +67,11 @@ Steps:
 * `cd` into the root folder of the project
 * Run `cargo run`
 * Input `c` to create a new Epic
-* Input `"New Epic title"` as Epic title
+* Input `"New Epic name"` as Epic name
 * Input `"New Epic description"` as Epic description
 * Check if `db.json` matches with the following:
      ```json
-    {"last_item_id":1,"epics":{"1":{"name":"New Epic title","description":"New Epic description","status":"Open","stories":[]}},"stories":{}}
+    {"last_item_id":1,"epics":{"1":{"name":"New Epic name","description":"New Epic description","status":"Open","stories":[]}},"stories":{}}
      ```
 
 __Create Story__
@@ -79,11 +79,11 @@ __Create Story__
 Steps:
 * Input `1` to select the created Epic
 * Input `c` to create a new Story in the selected Epic
-* Input `"New Story title"` as Story title
+* Input `"New Story name"` as Story name
 * Input `"New Story description"` as Story description
 * Check if `db.json` matches with the following:
     ```json
-    {"last_item_id":2,"epics":{"1":{"name":"New Epic title","description":"New Epic description","status":"Open","stories":[2]}},"stories":{"2":{"name":"New Story title","description":"New Story description","status":"Open"}}}
+    {"last_item_id":2,"epics":{"1":{"name":"New Epic name","description":"New Epic description","status":"Open","stories":[2]}},"stories":{"2":{"name":"New Story name","description":"New Story description","status":"Open"}}}
     ```
 
 __Update Epic__
@@ -93,7 +93,7 @@ Steps:
 * Input `2` to select `IN-PROGRESS` as the updated status
 * Check if `db.json` matches with the following:
     ```json
-    {"last_item_id":2,"epics":{"1":{"name":"New Epic title","description":"New Epic description","status":"InProgress","stories":[2]}},"stories":{"2":{"name":"New Story title","description":"New Story description","status":"Open"}}}
+    {"last_item_id":2,"epics":{"1":{"name":"New Epic name","description":"New Epic description","status":"InProgress","stories":[2]}},"stories":{"2":{"name":"New Story name","description":"New Story description","status":"Open"}}}
     ```
 
 __Update Story__
@@ -104,7 +104,7 @@ Steps:
 * Input `3` to select `RESOLVED` as the updated status
 * Check if `db.json` matches with the following:
     ```json
-    {"last_item_id":2,"epics":{"1":{"name":"New Epic title","description":"New Epic description","status":"InProgress","stories":[2]}},"stories":{"2":{"name":"New Story title","description":"New Story description","status":"Resolved"}}}
+    {"last_item_id":2,"epics":{"1":{"name":"New Epic name","description":"New Epic description","status":"InProgress","stories":[2]}},"stories":{"2":{"name":"New Story name","description":"New Story description","status":"Resolved"}}}
     ```
 
 __Remove Story__
@@ -114,14 +114,14 @@ Steps:
 * Input `Y` to confirm removal
 * Check if `db.json` matches with the following:
     ```json
-    {"last_item_id":2,"epics":{"1":{"name":"New Epic title","description":"New Epic description","status":"InProgress","stories":[]}},"stories":{}}
+    {"last_item_id":2,"epics":{"1":{"name":"New Epic name","description":"New Epic description","status":"InProgress","stories":[]}},"stories":{}}
     ```
 
 __Remove Epic__
 
 Steps:
 * Input `c` to create a new Story in the selected Epic
-* Input `"New Story title"` as Story title
+* Input `"New Story name"` as Story name
 * Input `"New Story description"` as Story description
 * Input `d` to delete the selected Epic
 * Input `Y` to confirm removal

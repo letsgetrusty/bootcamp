@@ -8,7 +8,7 @@ In this project, we will persist Epic and Story records in a JSON file to keep t
 * `last_item_id` - A global integer ID counter for both Epics and Stories. Each newly created Epic/Story will increment the counter.
 * `epics` - A mapping between Epic IDs and the actual Epics. An Epic will consist a list of Stories in the form of Story IDs.
 * `stories` - A mapping between Story IDs and the actual Stories.
-* `epic` and `story` both have `title`, `description` and `status`.
+* `epic` and `story` both have `name`, `description` and `status`.
 * `status` can be `Open`, `InProgress`, `Resolved` or `Closed`. 
 
 Here's an example for how the JSON file will look like:
