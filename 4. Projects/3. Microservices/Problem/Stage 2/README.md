@@ -148,7 +148,7 @@ Before we talk about continuous deployment let's setup continuous integration.
 
 Specifically, we will add a GitHub Actions workflow that builds and tests your code before it is merged into master.
 
-Copy over the `.github/workflow/prod.yml` file to your repository. 
+Copy over the `.github/workflows/prod.yml` file to your repository. 
 
 This file defines the workflow. Let's go through it:
 
@@ -211,7 +211,7 @@ Finally we build and test the app.
 
 ![Github Actions](gh_actions.png)
 
-After adding `.github/workflow/prod.yml` to your repository and pushing the changes up to master, you should see your workflow execute.
+After adding `.github/workflows/prod.yml` to your repository and pushing the changes up to master, you should see your workflow execute.
 
 ### Step 3 (Optional)
 
@@ -253,7 +253,7 @@ To setup continuous deployment follow these steps:
 
     Next we will update our GitHub workflow to deploy the app anytime changes are pushed to master. 
     
-    Copy over `.github/workflow/prod.yml` to your repository. Notice that now the workflow only runs when changes are pushed to master (not when creating PRs).
+    Copy over `.github/workflows/prod.yml` to your repository. Notice that now the workflow only runs when changes are pushed to master (not when creating PRs).
 
     Let's review the rest of the changes:
 
@@ -322,7 +322,7 @@ To setup continuous deployment follow these steps:
 
 5. Update Github Secrets & Variables
 
-    You may have noticed that the new `.github/workflow/prod.yml` file has some variables in it (ex: `vars.DROPLET_IP` and `secrets.DROPLET_PASSWORD`). These secrets & variables will need to be defined inside your GitHub repo for the workflow to succeed.
+    You may have noticed that the new `.github/workflows/prod.yml` file has some variables in it (ex: `vars.DROPLET_IP` and `secrets.DROPLET_PASSWORD`). These secrets & variables will need to be defined inside your GitHub repo for the workflow to succeed.
 
     Secrets are encrypted variables that you can create for a repository. Secrets are available to use in GitHub Actions workflows.
 
@@ -345,7 +345,7 @@ To setup continuous deployment follow these steps:
 
         ![Github Variables](gh_variables.png)
 
-    After adding these secrets/variables you should be able to push your updated `.github/workflow/prod.yml` file to the `master` branch and have your project automatically deployed.
+    After adding these secrets/variables you should be able to push your updated `.github/workflows/prod.yml` file to the `master` branch and have your project automatically deployed.
 
 6. Check droplet
 
