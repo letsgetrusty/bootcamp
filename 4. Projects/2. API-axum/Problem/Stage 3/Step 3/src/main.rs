@@ -3,7 +3,7 @@ extern crate log;
 
 extern crate pretty_env_logger;
 
-use std::{net::SocketAddr, sync::Arc};
+use std::sync::Arc;
 
 use axum::{
     routing::{delete, get, post},
@@ -57,9 +57,9 @@ async fn main() {
         .route("/answer", delete(delete_answer))
         .with_state(app_state);
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 8000));
-    axum::Server::bind(&addr)
-        .serve(app.into_make_service())
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:8000")
         .await
         .unwrap();
+
+    axum::serve(listener, app).await.unwrap();
 }

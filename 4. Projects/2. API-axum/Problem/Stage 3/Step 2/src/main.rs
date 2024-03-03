@@ -3,7 +3,7 @@ extern crate log;
 
 extern crate pretty_env_logger;
 
-use std::{net::SocketAddr, sync::Arc};
+use std::sync::Arc;
 
 use axum::{
     routing::{delete, get, post},
@@ -55,9 +55,9 @@ async fn main() {
         // The with_state method allows us to add state to the state managed by this instance of Axum. Then we can use this state in the handlers.
         .with_state(todo!()); // pass in `app_state` as application state.
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 8000));
-    axum::Server::bind(&addr)
-        .serve(app.into_make_service())
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:8000")
         .await
         .unwrap();
+
+    axum::serve(listener, app).await.unwrap();
 }
