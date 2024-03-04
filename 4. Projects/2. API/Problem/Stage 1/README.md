@@ -246,7 +246,9 @@ Tip: Use [cargo watch](https://github.com/watchexec/cargo-watch) instead of `car
 
 Now that your server it running, test it out by calling the endpoints!
 
-You can call the endpoints using [cURL](https://en.wikipedia.org/wiki/CURL):
+You can call the endpoints using
+- [cURL](https://en.wikipedia.org/wiki/CURL) or
+- [HTTP Client](https://www.jetbrains.com/help/phpstorm/2023.2/http-client-in-product-code-editor.html) integrated in IntelliJ IDEA ([http file](https://github.com/letsgetrusty/bootcamp/blob/master/4.%20Projects/2.%20API/.http/testing.http))
 
 Create question
 

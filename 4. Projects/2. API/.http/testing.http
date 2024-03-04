@@ -1,0 +1,46 @@
+### Create question
+POST {{server}}/question
+Content-Type: application/json
+
+{
+  "title": "Title {{$random.alphabetic(3)}}",
+  "description": "Description {{$random.alphabetic(5)}}"
+}
+> {% client.global.set("last_inserted_question_uuid", response.body.question_uuid); %}
+
+### Get questions
+GET {{server}}/questions
+
+### Delete question
+DELETE {{server}}/question
+Content-Type: application/json
+
+{
+  "question_uuid": "{{last_inserted_question_uuid}}"
+}
+
+### Create answer
+POST {{server}}/answer
+Content-Type: application/json
+
+{
+  "question_uuid": "{{last_inserted_question_uuid}}",
+  "content": "Content {{$random.alphabetic(10)}}"
+}
+> {% client.global.set("last_inserted_answer_uuid", response.body.answer_uuid); %}
+
+### Get answers
+GET {{server}}/answers
+Content-Type: application/json
+
+{
+  "question_uuid": "{{last_inserted_question_uuid}}"
+}
+
+### Delete answer
+DELETE {{server}}/answer
+Content-Type: application/json
+
+{
+  "answer_uuid": "{{last_inserted_answer_uuid}}"
+}
