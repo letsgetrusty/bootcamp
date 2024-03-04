@@ -82,7 +82,7 @@ __NOTE 2:__ `page_helpers.rs` contains a function called `get_column_string()` w
 
 __NOTE 3:__ Use `get_column_string()` inside the `draw_page()` methods.
 
-__NOTE 4:__ The `iterools` dependency has also been added. This allows you to sort an iterator by calling `sorted()` on it.
+__NOTE 4:__ The `itertools` dependency has also been added. This allows you to sort an iterator by calling `sorted()` on it.
 
 ### Step 2
 
