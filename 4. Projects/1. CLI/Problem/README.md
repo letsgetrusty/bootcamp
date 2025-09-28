@@ -33,6 +33,7 @@ __Jira, Epic & Story__
 Jira is an industry-standard tool for tracking progress of (not limited to) software projects. An Epic is usually used for entire initiatives, while a Story is a smaller unit of work with more specific instructions.
 
 __Model__
+
 Models describe how information is organized, transmitted or stored.
 
 __Database / Storage / Persistence__
@@ -72,7 +73,7 @@ After Development:
 
 ## FAQs
 
-__Will there a template to build the project on top of?__
+__Will there be a template to build the project on top of?__
 
 Yes. Each step has a partially built Rust project for you to finish. Stages and steps build on top of each other until you have a completed project. 
 
