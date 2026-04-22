@@ -230,6 +230,7 @@ Create question
 curl --request POST \
   --url http://localhost:8000/question \
   --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
   --data '{
 	"title": "Title",
 	"description": "Description"
@@ -250,6 +251,7 @@ Delete question
 curl --request DELETE \
   --url http://localhost:8000/question \
   --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
   --data '{
 	"question_uuid": "[UUID of a created question]"
 }'
@@ -261,6 +263,7 @@ Create answer
 curl --request POST \
   --url http://localhost:8000/answer \
   --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
   --data '{
 	"question_uuid": "[UUID of a created question]",
 	"content": "Content"
@@ -284,6 +287,7 @@ Delete answer
 curl --request DELETE \
   --url http://localhost:8000/answer \
   --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
   --data '{
 	"answer_uuid": "[UUID of a created answer]"
 }'
