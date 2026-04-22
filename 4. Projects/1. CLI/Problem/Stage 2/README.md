@@ -76,7 +76,7 @@ __NOTE 1:__ Status needs to implement the `Display` trait so it can be printed t
 * OPEN -> "OPEN"
 * InProgress -> "IN PROGRESS"
 * Resolved -> "RESOLVED"
-* Closed -> "Closed"
+* Closed -> "CLOSED"
 
 __NOTE 2:__ `page_helpers.rs` contains a function called `get_column_string()` which is used to confine text to a specific character width. A dependency called `ellipse` was added to help accomplish this. Use the `truncate_ellipse()` function from the `ellipse` crate to implement `get_column_string()`.
 
