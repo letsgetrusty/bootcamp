@@ -26,7 +26,7 @@ The `Navigator` Struct contains 2 primary functions. `get_current_page()` which 
 
 To complete this step finish all the TODO items in `navigator.rs`.
 
-__NOTE 1:__ Use `with_context()` and the `anyhow!` macro form the anyhow crate inside `handle_action()` for error handling.
+__NOTE 1:__ Use `with_context()` and the `anyhow!` macro from the anyhow crate inside `handle_action()` for error handling.
 
 __NOTE 2:__ A method called `as_any()` has been added to all page objects. This was done to support down-casting, which is used in the navigator tests. For more info check out [this StackOverflow post](https://stackoverflow.com/questions/33687447/how-to-get-a-reference-to-a-concrete-type-from-a-trait-object).
 
