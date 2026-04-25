@@ -9,7 +9,7 @@ use std::collections::HashMap;
 
 pub trait Users {
     fn create_user(&mut self, username: String, password: String) -> Result<(), String>;
-    fn get_user_uuid(&self, username: String, password: String) -> Option<String>;
+    fn get_user_uuid(&self, username: &str, password: &str) -> Option<String>;
     fn delete_user(&mut self, user_uuid: String);
 }
 
@@ -17,7 +17,7 @@ pub trait Users {
 pub struct User {
     user_uuid: String,
     username: String,
-    password: String,
+    hashed_password: String,
 }
 
 #[derive(Default)]
@@ -42,7 +42,7 @@ impl Users for UsersImpl {
         let user = User {
             user_uuid: Uuid::new_v4().to_string(),
             username: username.clone(),
-            password: hashed_password,
+            hashed_password,
         };
 
         self.username_to_user.insert(username, user.clone());
@@ -51,11 +51,10 @@ impl Users for UsersImpl {
         Ok(())
     }
 
-    fn get_user_uuid(&self, username: String, password: String) -> Option<String> {
-        let user = self.username_to_user.get(&username)?;
+    fn get_user_uuid(&self, username: &str, password: &str) -> Option<String> {
+        let user = self.username_to_user.get(username)?;
 
-        let hashed_password = user.password.clone();
-        let parsed_hash = PasswordHash::new(&hashed_password).ok()?;
+        let parsed_hash = PasswordHash::new(&user.hashed_password).ok()?;
 
         let result = Pbkdf2.verify_password(password.as_bytes(), &parsed_hash);
 
@@ -107,9 +106,7 @@ mod tests {
             .create_user("username".to_owned(), "password".to_owned())
             .expect("should create user");
 
-        assert!(user_service
-            .get_user_uuid("username".to_owned(), "password".to_owned())
-            .is_some());
+        assert!(user_service.get_user_uuid("username", "password").is_some());
     }
 
     #[test]
@@ -120,7 +117,7 @@ mod tests {
             .expect("should create user");
 
         assert!(user_service
-            .get_user_uuid("username".to_owned(), "incorrect password".to_owned())
+            .get_user_uuid("username", "incorrect password")
             .is_none());
     }
 
@@ -131,9 +128,7 @@ mod tests {
             .create_user("username".to_owned(), "password".to_owned())
             .expect("should create user");
 
-        let user_uuid = user_service
-            .get_user_uuid("username".to_owned(), "password".to_owned())
-            .unwrap();
+        let user_uuid = user_service.get_user_uuid("username", "password").unwrap();
 
         user_service.delete_user(user_uuid);
 

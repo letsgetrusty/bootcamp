@@ -9,7 +9,7 @@ use std::collections::HashMap;
 
 pub trait Users {
     fn create_user(&mut self, username: String, password: String) -> Result<(), String>;
-    fn get_user_uuid(&self, username: String, password: String) -> Option<String>;
+    fn get_user_uuid(&self, username: &str, password: &str) -> Option<String>;
     fn delete_user(&mut self, user_uuid: String);
 }
 
@@ -44,10 +44,10 @@ impl Users for UsersImpl {
         Ok(())
     }
 
-    fn get_user_uuid(&self, username: String, password: String) -> Option<String> {
+    fn get_user_uuid(&self, username: &str, password: &str) -> Option<String> {
         let user: &User = todo!(); // Retrieve `User` or return `None` is user can't be found.
 
-        // Get user's password as `PasswordHash` instance. 
+        // Get user's password as `PasswordHash` instance.
         let hashed_password = user.password.clone();
         let parsed_hash = PasswordHash::new(&hashed_password).ok()?;
 
@@ -98,9 +98,7 @@ mod tests {
             .create_user("username".to_owned(), "password".to_owned())
             .expect("should create user");
 
-        assert!(user_service
-            .get_user_uuid("username".to_owned(), "password".to_owned())
-            .is_some());
+        assert!(user_service.get_user_uuid("username", "password").is_some());
     }
 
     #[test]
@@ -111,7 +109,7 @@ mod tests {
             .expect("should create user");
 
         assert!(user_service
-            .get_user_uuid("username".to_owned(), "incorrect password".to_owned())
+            .get_user_uuid("username", "incorrect password")
             .is_none());
     }
 
@@ -122,9 +120,7 @@ mod tests {
             .create_user("username".to_owned(), "password".to_owned())
             .expect("should create user");
 
-        let user_uuid = user_service
-            .get_user_uuid("username".to_owned(), "password".to_owned())
-            .unwrap();
+        let user_uuid = user_service.get_user_uuid("username", "password").unwrap();
 
         user_service.delete_user(user_uuid);
 

@@ -49,7 +49,7 @@ impl Auth for AuthService {
             .users_service
             .lock()
             .expect("lock should not be poisoned")
-            .get_user_uuid(req.username, req.password);
+            .get_user_uuid(&req.username, &req.password);
 
         let user_uuid = match result {
             Some(uuid) => uuid,

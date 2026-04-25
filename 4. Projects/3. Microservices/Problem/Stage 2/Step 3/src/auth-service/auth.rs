@@ -49,7 +49,7 @@ impl Auth for AuthService {
             .users_service
             .lock()
             .expect("lock should not be poisoned")
-            .get_user_uuid(req.username, req.password);
+            .get_user_uuid(&req.username, &req.password);
 
         let user_uuid = match result {
             Some(uuid) => uuid,
@@ -134,7 +134,7 @@ impl Auth for AuthService {
 
 #[cfg(test)]
 mod tests {
-    use crate::{users::UsersImpl, sessions::SessionsImpl};
+    use crate::{sessions::SessionsImpl, users::UsersImpl};
 
     use super::*;
 
@@ -249,7 +249,7 @@ mod tests {
         let auth_service = AuthService::new(users_service, sessions_service);
 
         let request = tonic::Request::new(SignOutRequest {
-            session_token: "".to_owned()
+            session_token: "".to_owned(),
         });
 
         let result = auth_service.sign_out(request).await.unwrap();
