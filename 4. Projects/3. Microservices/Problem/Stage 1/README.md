@@ -127,6 +127,8 @@ __NOTE 2:__ Read through all the code to make sure you understand what's going o
 
 __NOTE 3:__ For simplicity this project stores all data on the heap. If the server is restarted all the user/session info will be wiped.
 
+__NOTE 4:__ For simplicity, User clones in both HashMaps instead of using Rc<User> to share a single allocation. In production, Rc<User> (or Arc<User> for multi-threaded code) would be preferred.
+
 ### Step 3
 
 __Implementing the health check service__
