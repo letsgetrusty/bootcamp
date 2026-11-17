@@ -36,9 +36,9 @@ Complete this step by finishing the TODO items in `handlers/mod.rs`.
 
 ## Building & Testing
 
-Now you can run your server using `cargo run` or cargo watch
+Now you can run your server using `cargo run` or watchexec
 ```shell
- $ cargo watch -q -c -w src/ -x run
+ $ watchexec -q -c -w src/ -r -- cargo run
 ```
 
 And test the endpoints using [cURL](https://en.wikipedia.org/wiki/CURL):

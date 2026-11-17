@@ -112,9 +112,9 @@ Now that Postgres is installed and our database tables are setup, let's query ou
 
 Do this by completing the TODO items in `main.rs`.
 
-Then run the server using `cargo run` or cargo watch:
+Now you can run your server using [watchexec](https://github.com/watchexec/watchexec)
 ```shell
-$ cargo watch -q -c -w src/ -x run
+$ watchexec -q -c -r -w src -- cargo run
 ```
 
 You should see the following log output in your terminal:
