@@ -163,17 +163,17 @@ After completing steps 1-4 you should have a fully functioning microservice appl
 
 Let's test it out!
 
-__NOTE:__ We are going to use [cargo watch](https://github.com/watchexec/cargo-watch) to automatically restart ours services when source files change, so make sure you have it installed.
+__NOTE:__ We are going to use [watchexec](https://github.com/watchexec/watchexec) to automatically restart ours services when source files change, so make sure you have it installed.
 
 First build the project by running `cargo build`.
 
 Then execute the following commands in different terminal windows:
 
 ```bash
-cargo watch -c -q -w src/auth-service -x "run -q --bin auth"
+watchexec -c -q -w src/auth-service -r -- cargo run -q --bin auth
 ```
 ```bash
-cargo watch -c -q -w src/health-check-service -x "run -q --bin health-check"
+watchexec -c -q -w src/health-check-service -r -- cargo run -q --bin health-check
 ```
 
 __NOTE:__ These commands should be ran in the order above. The auth service needs to be running before launching the health-check service.

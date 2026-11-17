@@ -216,7 +216,7 @@ After completing steps 1 & 2 you should have a fully functioning server!
 
 Execute `cargo run` to run your server.
 
-Tip: Use [cargo watch](https://github.com/watchexec/cargo-watch) instead of `cargo run` to automatically restart your server when source files change. Example: `cargo watch -q -c -w src/ -x run`.
+Tip: Use [watchexec](https://github.com/watchexec/watchexec) instead of `cargo run` to automatically restart your server when source files change. Example: `watchexec -q -c -r -w src -- cargo run`.
 
 ## Testing
 
