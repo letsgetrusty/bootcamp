@@ -276,6 +276,7 @@ Get answers
 curl --request GET \
   --url http://localhost:8000/answers \
   --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
   --data '{
 	"question_uuid": "[UUID of a created question]"
 }'
